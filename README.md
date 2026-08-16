@@ -100,6 +100,11 @@ Claude (or any coding assistant with shell access) session — it walks through
 authentication, generation, the special-repo gotcha, and publishing,
 checking in with you at each step instead of doing everything blind.
 
+Prefer a PDF? Both are in [`docs/`](docs/), with real screenshots:
+
+- [**Setup Guide**](docs/RepoSkins-Setup-Guide.pdf) — the manual walkthrough, phase by phase
+- [**Master Prompt**](docs/RepoSkins-Master-Prompt.pdf) — the copy-paste prompt, plus known issues and dead ends already ruled out
+
 ## What's intentionally not in the free kit
 
 `about`, `stats`, and `stack` cards aren't included yet — today they only

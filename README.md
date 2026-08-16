@@ -1,12 +1,11 @@
 # RepoSkins
 
 Generate animated GitHub profile cards — hero, wordmark, contribution heatmap,
-ASCII portrait, chess, system scan, highlights, social row — plus a
-contribution snake and social badges. Runs **100% on your machine**. The only
-services this project ever talks to are `api.github.com` (your data, your
-token), `img.shields.io` (badge images) and GitHub's own Actions runners for
-the snake. No shared backend, no rate limit shared with anyone else, no
-account required on our end.
+ASCII portrait, chess, system scan, highlights, social row, snake trail —
+plus social badges. Runs **100% on your machine**. The only services this
+project ever talks to are `api.github.com` (your data, your token) and
+`img.shields.io` (badge images). No shared backend, no rate limit shared
+with anyone else, no GitHub Actions required, no account needed on our end.
 
 ![hero card example](docs/screenshots/hero.png)
 
@@ -27,8 +26,8 @@ running, nothing to depend on afterwards.
   run anything locally.)
 - **8 cards**: hero, wordmark, heatmap, portrait, chess, system-scan,
   highlights, social-row
-- **Contribution snake**: a ready [`Platane/snk`](https://github.com/Platane/snk)
-  GitHub Actions workflow, dark/light themed
+- **Bonus card — Snake Trail**: an animated contribution-grid card with a
+  real snake trail, `midnight` theme only (see below)
 - **Social badges**: shields.io badges built with zero API calls
 
 ## Screenshots
@@ -38,6 +37,7 @@ running, nothing to depend on afterwards.
 | ![hero](docs/screenshots/hero.png) | ![wordmark](docs/screenshots/wordmark.png) |
 | ![heatmap](docs/screenshots/heatmap.png) | ![highlights](docs/screenshots/highlights.png) |
 | ![system-scan](docs/screenshots/system-scan.png) | ![social-row](docs/screenshots/social-row.png) |
+| ![snake-trail](docs/screenshots/snake-trail.png) | |
 
 <details>
 <summary>Portrait &amp; Chess (larger cards)</summary>
@@ -70,17 +70,17 @@ From there:
    `README.md`.
 3. Commit, push. Done — nothing left running anywhere.
 
-### Adding the contribution snake
+### Adding the Snake Trail card
 
 ```bash
-python generate.py YOUR_USERNAME --theme midnight --with-snake
+python generate.py YOUR_USERNAME --theme midnight --cards hero,wordmark,snake-trail
 ```
 
-Then copy `github-actions/snake-midnight.yml` (or `-github-dark.yml`) into
-`.github/workflows/snake.yml` in your profile repo, set **Settings → Actions →
-General → Workflow permissions → Read and write** on that repo, and run the
-workflow once manually. The `output` branch — and the snake — only exist
-after that first run.
+`snake-trail` is a static SVG like every other card — no GitHub Actions
+workflow, no separate `output` branch, nothing to run on a schedule. It's
+listed separately from the 8 free cards because the real template it's built
+from only exists in `midnight`; requesting it with `--theme github-dark`
+still renders it in midnight colors (you'll see a note when that happens).
 
 ### Adding social badges
 

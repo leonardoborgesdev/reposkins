@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "generators"))
 
 from github_api import get_user_data  # noqa: E402
-from generators import hero, wordmark, heatmap, portrait, chess, system_scan, highlights, social_row, avatar  # noqa: E402
+from generators import hero, wordmark, heatmap, portrait, chess, system_scan, highlights, social_row, avatar, snake_trail  # noqa: E402
 from badges import build_badges  # noqa: E402
 import json  # noqa: E402
 
@@ -28,6 +28,9 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "themes", "pa
 
 FREE_THEMES = ("midnight", "github-dark")
 ALL_CARDS = ("hero", "wordmark", "heatmap", "portrait", "chess", "system-scan", "highlights", "social-row", "avatar")
+# Bonus card: a real GitSkins template, but only extracted in "midnight" - not
+# part of the 8-card free promise, request it explicitly with --cards snake-trail
+BONUS_CARDS = ("snake-trail",)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS_DIR = os.path.join(BASE_DIR, "assets")
@@ -50,6 +53,10 @@ def build_card(card, username, data, theme_name, heatmap_style, highlights_items
         return highlights.render(username, data, theme_name, items_raw=highlights_items)
     if card == "social-row":
         return social_row.render(username, data, theme_name, links_raw=social_links)
+    if card == "snake-trail":
+        if theme_name != "midnight":
+            print(f"  NOTE: snake-trail only has a real 'midnight' template - rendering in midnight regardless of --theme {theme_name}")
+        return snake_trail.render(username, data, theme_name)
     raise ValueError(f"unknown card: {card}")
 
 
@@ -65,7 +72,6 @@ def main():
     p.add_argument("--social-links", default="")
     p.add_argument("--include-avatar", action="store_true", help="also generate assets/avatar.png (procedural avatar, not your real GitHub photo)")
     p.add_argument("--badges", default="", help="e.g. linkedin:https://...,instagram:https://...,email:foo@bar.com (shields.io, no API call)")
-    p.add_argument("--with-snake", action="store_true", help="copy the contribution snake workflow (Platane/snk) for the chosen theme and add the block to the README")
     args = p.parse_args()
 
     if not os.environ.get("GITHUB_TOKEN"):
@@ -104,18 +110,6 @@ def main():
         readme_lines.append(f"![{card}]({url})")
         readme_lines.append("")
 
-    if args.with_snake:
-        dark = f"https://raw.githubusercontent.com/{args.username}/{args.username}/output/dist/snake-dark.svg"
-        light = f"https://raw.githubusercontent.com/{args.username}/{args.username}/output/dist/snake-light.svg"
-        readme_lines += [
-            "<picture>",
-            f'  <source media="(prefers-color-scheme: dark)" srcset="{dark}" />',
-            f'  <source media="(prefers-color-scheme: light)" srcset="{light}" />',
-            f'  <img alt="contribution snake" src="{dark}" />',
-            "</picture>",
-            "",
-        ]
-
     if args.badges:
         bg = _PALETTES[args.theme]["bg"][0]
         badges_html = build_badges(args.badges, bg)
@@ -134,10 +128,6 @@ def main():
     print(f"  1. Create the repo {args.username}/{args.username} through the GitHub web UI (check 'Add README')")
     print(f"  2. Copy the whole assets/ folder to that repo's root")
     print(f"  3. Copy README.generated.md's content into the repo's README.md")
-    if args.with_snake:
-        print(f"  4. Copy github-actions/snake-{args.theme}.yml to .github/workflows/snake.yml in the repo")
-        print(f"  5. Settings > Actions > General > Workflow permissions > Read and write (on the REPO, not the account)")
-        print(f"  6. Run the Action once (Actions > Run workflow) - the 'output' branch only exists after it goes green")
     print(f"  Commit and push. Zero calls to any backend of ours from here on.")
 
 

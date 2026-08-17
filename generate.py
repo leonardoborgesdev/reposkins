@@ -68,7 +68,8 @@ def main():
     p.add_argument("--cards", default="hero,wordmark,heatmap,portrait,chess,system-scan,highlights,social-row",
                    help="comma-separated list, from: " + ",".join(ALL_CARDS))
     p.add_argument("--heatmap-style", default="default", choices=("default", "jet", "snake", "erased"))
-    p.add_argument("--highlights-items", default="Open source::Building in public::Shipping weekly")
+    p.add_argument("--highlights-items", default="Open source::Building in public|Shipping weekly::Iterating fast",
+                   help='pipe-separated items, title::description each, e.g. "A::desc A|B::desc B"')
     p.add_argument("--social-links", default="")
     p.add_argument("--include-avatar", action="store_true", help="also generate assets/avatar.png (procedural avatar, not your real GitHub photo)")
     p.add_argument("--badges", default="", help="e.g. linkedin:https://...,instagram:https://...,email:foo@bar.com (shields.io, no API call)")

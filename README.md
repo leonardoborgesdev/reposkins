@@ -7,7 +7,11 @@ project ever talks to are `api.github.com` (your data, your token) and
 `img.shields.io` (badge images). No shared backend, no rate limit shared
 with anyone else, no GitHub Actions required, no account needed on our end.
 
+<div align="center">
+
 ![hero card example](docs/screenshots/hero.png)
+
+</div>
 
 ## Why
 
@@ -32,22 +36,38 @@ running, nothing to depend on afterwards.
 
 ## Screenshots
 
-| | |
-|---|---|
-| ![hero](docs/screenshots/hero.png) | ![wordmark](docs/screenshots/wordmark.png) |
-| ![heatmap](docs/screenshots/heatmap.png) | ![highlights](docs/screenshots/highlights.png) |
-| ![system-scan](docs/screenshots/system-scan.png) | ![social-row](docs/screenshots/social-row.png) |
-| ![snake-trail](docs/screenshots/snake-trail.png) | |
+Real output for [github.com/leonardoborgesdev](https://github.com/leonardoborgesdev), theme `midnight` — this is what his actual profile README renders, stacked the same way, one card per row.
+
+<div align="center">
+
+![hero](docs/screenshots/hero.png)
+
+![wordmark](docs/screenshots/wordmark.png)
+
+![heatmap](docs/screenshots/heatmap.png)
+
+![snake-trail](docs/screenshots/snake-trail.png)
+
+![highlights](docs/screenshots/highlights.png)
+
+</div>
 
 <details>
-<summary>Portrait &amp; Chess (larger cards)</summary>
+<summary>More cards available in the kit (not used on the profile above, but included)</summary>
+
+<div align="center">
 
 ![portrait](docs/screenshots/portrait.png)
+
+![system-scan](docs/screenshots/system-scan.png)
+
 ![chess](docs/screenshots/chess.png)
 
-</details>
+![social-row](docs/screenshots/social-row.png)
 
-All generated from a real profile with real data — nothing here is a mockup.
+</div>
+
+</details>
 
 ## Quickstart
 
